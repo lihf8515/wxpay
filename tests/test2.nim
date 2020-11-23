@@ -22,7 +22,7 @@ input["refund_fee"] = "1"
 input["total_fee"] = "1"
 
 try:
-  var ret = wxrefund(input, config, succFlag)
+  var ret = wxRefund(input, config, succFlag)
   if succFlag:
     echo "请求退款成功"
     echo ret
@@ -30,4 +30,4 @@ try:
     echo "请求退款失败"
     echo ret
 except:
-  echo errorMessage()
+  echo wxErrorMessage()
