@@ -42,7 +42,7 @@ method toXml*(wxdb: WxPayDataBase): string {.base.} =
   result = xml
 
 method fromXml*(wxdb: WxPayDataBase,
-        xml: string): OrderedTableRef[string, string] {.base.} =
+                xml: string): OrderedTableRef[string, string] {.base.} =
   ## 由xml字符串转换为数据对象数据，返回一个有序表
   var table = OrderedTableRef[string, string]()
   let xmlnode = parseXml(xml)
