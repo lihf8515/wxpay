@@ -33,7 +33,7 @@ input["out_trade_no"] = "00001"
 
 
 try:
-  var ret = wxmicropay(input, config, succFlag)
+  var ret = wxMicropay(input, config, succFlag)
   if succFlag:
     echo "支付成功"
     echo ret
@@ -41,5 +41,5 @@ try:
     echo "支付失败"
     echo ret
 except:
-  echo errorMessage()
+  echo wxErrorMessage()
 ```
