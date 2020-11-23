@@ -59,7 +59,6 @@ proc pay(microPayInput: WxPayMicroPay, config: WxPayConfig,
          succFlag: var bool): WxPayResults =
   ## 提交刷卡支付，并且确认结果，接口比较慢,
   ## 返回查询接口的结果
-
   #①、提交被扫支付
   var wxPayApi = WxPayApi()
   var ret = wxPayApi.micropay(config, microPayInput, 5)
@@ -69,6 +68,7 @@ proc pay(microPayInput: WxPayMicroPay, config: WxPayConfig,
   if ret.getData("return_code") == "FAIL":
     succFlag = false
     return ret
+
   ## 取订单号
   var out_trade_no = microPayInput.getOut_trade_no()
 
@@ -126,8 +126,8 @@ proc initConfig(config: OrderedTableRef[string, string]): WxPayConfig =
     cfg.setSignType(config["sign_type"])
   result = cfg
 
-{.push dynlib exportc.}
-proc wxmicropay*(data, config: OrderedTableRef[string, string],
+{.push stdcall dynlib exportc.}
+proc wxMicropay*(data, config: OrderedTableRef[string, string],
                  succFlag: var bool): OrderedTableRef[string, string] =
   ## 微信付款码支付，返回查询接口的结果
   ## 此函数将要导出到lib,供其他语言调用
@@ -142,7 +142,7 @@ proc wxmicropay*(data, config: OrderedTableRef[string, string],
   var ret = pay(input, cfg, succFlag)
   result = ret.getValues()
 
-proc wxrefund*(data, config: OrderedTableRef[string, string],
+proc wxRefund*(data, config: OrderedTableRef[string, string],
                succFlag: var bool): OrderedTableRef[string, string] =
   ## 微信申请退款，返回申请受理结果
   ## 此函数将要导出到lib,供其他语言调用
@@ -171,4 +171,8 @@ proc wxrefund*(data, config: OrderedTableRef[string, string],
   else:
     succFlag = false
   result = ret.getValues()
+
+proc wxErrorMessage*(): string =
+  result = errorMessage()
+
 {.pop.}
