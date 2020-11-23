@@ -42,15 +42,16 @@ method toXml*(wxdb: WxPayDataBase): string {.base.} =
   result = xml
 
 method fromXml*(wxdb: WxPayDataBase,
-        xml: string): OrderedTableRef[string, string] {.discardable, base.} =
+        xml: string): OrderedTableRef[string, string] {.base.} =
   ## 由xml字符串转换为数据对象数据，返回一个有序表
+  var table = OrderedTableRef[string, string]()
   let xmlnode = parseXml(xml)
   for child in xmlnode:
     if child.kind != xnElement:
       continue
     for item in child:
-      wxdb.values[child.tag] = item.text
-  result = wxdb.values
+      table[child.tag] = item.text
+  result = table
 
 method toUrlParams*(wxdb: WxPayDataBase): string {.base.} =
   ## 将数据对象数据格式化成url参数
