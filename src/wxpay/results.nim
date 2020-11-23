@@ -46,26 +46,22 @@ proc checkSign*(wxPayResults: WxPayResults, config: WxPayConfig): bool =
   else:
     raise newException(WxPayException, "签名错误！")
 
-proc fromOrderedTable(wxPayResults: WxPayResults,
-           orderedTable: OrderedTableRef[string, string]) =
-  ## 使用OrderedTableRef初始化数据
-  wxPayResults.setValues(orderedTable)
-
-proc initFromOrderedTable*(wxPayResults: WxPayResults, config: WxPayConfig,
-             orderedTable: OrderedTableRef[string, string],
-             noCheckSign = false): WxPayResults =
-  ## 使用OrderedTableRef初始化数据对象
+proc initWxPayResults*(config: WxPayConfig,
+                       orderedTable: OrderedTableRef[string, string],
+                       noCheckSign = false): WxPayResults =
+  ## 使用OrderedTableRef初始化WxPayResults对象
   var obj = WxPayResults()
-  obj.fromOrderedTable(orderedTable)
+  obj.setValues(orderedTable)
   if noCheckSign == false:
     discard obj.checkSign(config)
 
   result = obj
 
-proc init*(wxPayResults: WxPayResults, config: WxPayConfig,
-      xml: string): WxPayResults =
-  ## 将xml转为WxPayResults
-  wxPayResults.fromXml(xml)
+proc initWxPayResults*(config: WxPayConfig, xml: string): WxPayResults =
+  ## 使用xml字符串初始化WxPayResults对象
+  var wxPayResults = WxPayResults()
+  wxPayResults = initWxPayResults(config, wxPayResults.fromXml(xml))
+  
   # 失败则直接返回失败
   if wxPayResults.getData("return_code") != "SUCCESS":
     for key, value in wxPayResults.getValues:
