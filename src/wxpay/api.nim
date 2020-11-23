@@ -207,10 +207,7 @@ proc unifiedOrder*(wxPayApi: WxPayApi, config: WxPayConfig,
 
   let startTimeStamp = wxPayApi.getMillisecond() # 请求开始时间
   let response = wxPayApi.postXmlCurl(config, xml, url, false, timeOut)
-  var wxPayResults = WxPayResults() # 创建支付结果对象，并初始化Values为空表
-  var data = OrderedTableRef[string, string]()
-  wxPayResults.setValues(data)
-  result = wxPayResults.init(config, response)
+  result = initWxPayResults(config, response) # 使用返回的XML初始化结果对象
   wxPayApi.reportCostTime(config, url, startTimeStamp, result) # 上报请求花费时间
 
 proc orderQuery*(wxPayApi: WxPayApi, config: WxPayConfig,
@@ -232,10 +229,7 @@ proc orderQuery*(wxPayApi: WxPayApi, config: WxPayConfig,
 
   let startTimeStamp = wxPayApi.getMillisecond() # 请求开始时间
   let response = wxPayApi.postXmlCurl(config, xml, url, false, timeOut)
-  var wxPayResults = WxPayResults() # 创建支付结果对象，并初始化Values为空表
-  var data = OrderedTableRef[string, string]()
-  wxPayResults.setValues(data)
-  result = wxPayResults.init(config, response)
+  result = initWxPayResults(config, response) # 使用返回的XML初始化结果对象
   wxPayApi.reportCostTime(config, url, startTimeStamp, result) # 上报请求花费时间
 
 proc closeOrder*(wxPayApi: WxPayApi, config: WxPayConfig,
@@ -257,10 +251,7 @@ proc closeOrder*(wxPayApi: WxPayApi, config: WxPayConfig,
 
   let startTimeStamp = wxPayApi.getMillisecond() # 请求开始时间
   let response = wxPayApi.postXmlCurl(config, xml, url, false, timeOut)
-  var wxPayResults = WxPayResults() # 创建支付结果对象，并初始化Values为空表
-  var data = OrderedTableRef[string, string]()
-  wxPayResults.setValues(data)
-  result = wxPayResults.init(config, response)
+  result = initWxPayResults(config, response) # 使用返回的XML初始化结果对象
   wxPayApi.reportCostTime(config, url, startTimeStamp, result) # 上报请求花费时间
 
 proc refund*(wxPayApi: WxPayApi, config: WxPayConfig,
@@ -291,10 +282,7 @@ proc refund*(wxPayApi: WxPayApi, config: WxPayConfig,
 
   let startTimeStamp = wxPayApi.getMillisecond() # 请求开始时间
   let response = wxPayApi.postXmlCurl(config, xml, url, true, timeOut)
-  var wxPayResults = WxPayResults() # 创建支付结果对象，并初始化Values为空表
-  var data = OrderedTableRef[string, string]()
-  wxPayResults.setValues(data)
-  result = wxPayResults.init(config, response)
+  result = initWxPayResults(config, response) # 使用返回的XML初始化结果对象
   wxPayApi.reportCostTime(config, url, startTimeStamp, result) # 上报请求花费时间
 
 proc refundQuery*(wxPayApi: WxPayApi, config: WxPayConfig,
@@ -319,10 +307,7 @@ proc refundQuery*(wxPayApi: WxPayApi, config: WxPayConfig,
 
   let startTimeStamp = wxPayApi.getMillisecond() # 请求开始时间
   let response = wxPayApi.postXmlCurl(config, xml, url, false, timeOut)
-  var wxPayResults = WxPayResults() # 创建支付结果对象，并初始化Values为空表
-  var data = OrderedTableRef[string, string]()
-  wxPayResults.setValues(data)
-  result = wxPayResults.init(config, response)
+  result = initWxPayResults(config, response) # 使用返回的XML初始化结果对象
   wxPayApi.reportCostTime(config, url, startTimeStamp, result) # 上报请求花费时间
 
 proc downloadBill*(wxPayApi: WxPayApi, config: WxPayConfig,
@@ -375,10 +360,7 @@ proc micropay*(wxPayApi: WxPayApi, config: WxPayConfig,
 
   let startTimeStamp = wxPayApi.getMillisecond() # 请求开始时间
   let response = wxPayApi.postXmlCurl(config, xml, url, false, timeOut)
-  var wxPayResults = WxPayResults() # 创建支付结果对象，并初始化Values为空表
-  var data = OrderedTableRef[string, string]()
-  wxPayResults.setValues(data)
-  result = wxPayResults.init(config, response)
+  result = initWxPayResults(config, response) # 使用返回的XML初始化结果对象
   wxPayApi.reportCostTime(config, url, startTimeStamp, result) # 上报请求花费时间
 
 proc reverse*(wxPayApi: WxPayApi, config: WxPayConfig,
@@ -399,10 +381,7 @@ proc reverse*(wxPayApi: WxPayApi, config: WxPayConfig,
 
   let startTimeStamp = wxPayApi.getMillisecond() # 请求开始时间
   let response = wxPayApi.postXmlCurl(config, xml, url, true, timeOut)
-  var wxPayResults = WxPayResults() # 创建支付结果对象，并初始化Values为空表
-  var data = OrderedTableRef[string, string]()
-  wxPayResults.setValues(data)
-  result = wxPayResults.init(config, response)
+  result = initWxPayResults(config, response) # 使用返回的XML初始化结果对象
   wxPayApi.reportCostTime(config, url, startTimeStamp, result) # 上报请求花费时间
 
 proc bizpayurl*(wxPayApi: WxPayApi, config: WxPayConfig,
@@ -444,8 +423,5 @@ proc shorturl*(wxPayApi: WxPayApi, config: WxPayConfig,
   
   let startTimeStamp = wxPayApi.getMillisecond() # 请求开始时间
   let response = wxPayApi.postXmlCurl(config, xml, url, false, timeOut)
-  var wxPayResults = WxPayResults() # 创建支付结果对象，并初始化Values为空表
-  var data = OrderedTableRef[string, string]()
-  wxPayResults.setValues(data)
-  result = wxPayResults.init(config, response)
+  result = initWxPayResults(config, response) # 使用返回的XML初始化结果对象
   wxPayApi.reportCostTime(config, url, startTimeStamp, result) # 上报请求花费时间
