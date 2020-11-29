@@ -1,9 +1,8 @@
-﻿import tables
+import tables
 import wxpay
-import wxpay/exception
 
 var succFlag: bool
-var input, config = OrderedTableRef[string, string]()
+var input, config = OrderedTable[string, string]()
 config["appid"] = ""
 config["appsecret"] = ""
 config["key"] = ""
@@ -16,8 +15,8 @@ config["sslcert_path"] = "cert/apiclient_cert.pem"
 config["sslkey_path"] = "cert/apiclient_key.pem"
 config["sign_type"] = "HMAC-SHA256"
 
-input["out_refund_no"] = "123456789"
-input["out_trade_no"] = "00001"
+input["out_refund_no"] = "132564989589668"
+input["out_trade_no"] = "test00000001"
 input["refund_fee"] = "1"
 input["total_fee"] = "1"
 
