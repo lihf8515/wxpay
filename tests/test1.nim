@@ -1,9 +1,8 @@
 import tables
 import wxpay
-import wxpay/exception
 
 var succFlag: bool
-var input, config = OrderedTableRef[string, string]()
+var input, config = OrderedTable[string, string]()
 config["appid"] = ""
 config["appsecret"] = ""
 config["key"] = ""
@@ -16,11 +15,10 @@ config["sslcert_path"] = ""
 config["sslkey_path"] = ""
 config["sign_type"] = "HMAC-SHA256"
 
-input["auth_code"] = ""
+input["auth_code"] = "134728953980228598"
 input["body"] = "付款码支付测试"
 input["total_fee"] = "1"
-input["out_trade_no"] = "00001"
-
+input["out_trade_no"] = "test00000001"
 
 try:
   var ret = wxMicropay(input, config, succFlag)
