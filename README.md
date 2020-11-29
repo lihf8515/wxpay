@@ -28,7 +28,7 @@ config["sign_type"] = "HMAC-SHA256"
 input["auth_code"] = ""
 input["body"] = "付款码支付测试"
 input["total_fee"] = "1"
-input["out_trade_no"] = "00001"
+input["out_trade_no"] = "test00000001"
 
 try:
   var ret = wxMicropay(input, config, succFlag)
