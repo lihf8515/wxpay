@@ -117,9 +117,9 @@ proc getCurrentTime*(): string =
 proc fromJson*(json: string): WxPayData =
   ## 由json字符串转换为有序表，返回一个有序表
   var table = WxPayData()
-  let jsonnode = %json
+  let jsonnode = parseJson(json)
   for key, value in jsonnode:
-    table[$key] = $value
+    table[key] = value.getStr
   result = table
 
 proc fromXml*(xml: string): WxPayData =
