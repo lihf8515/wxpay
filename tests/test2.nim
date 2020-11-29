@@ -1,8 +1,17 @@
 import tables
-import wxpay
 
-var succFlag: bool
-var input, config = OrderedTable[string, string]()
+proc errorMessage(): string {.stdcall,importc:"wxErrorMessage",dynlib:"wxpay.dll".}
+proc wxmicropay(data, config: OrderedTable[string, string],
+                results: var OrderedTable[string, string]): bool
+               {.stdcall,importc:"wxMicropay",dynlib:"wxpay.dll".}
+proc wxrefund(data, config: OrderedTable[string, string],
+              results: var OrderedTable[string, string]): bool
+               {.stdcall,importc:"wxRefund",dynlib:"wxpay.dll".} 
+               
+var results = OrderedTable[string, string]()
+var input = OrderedTable[string, string]()
+var config = OrderedTable[string, string]()
+
 config["appid"] = ""
 config["appsecret"] = ""
 config["key"] = ""
@@ -15,18 +24,34 @@ config["sslcert_path"] = "cert/apiclient_cert.pem"
 config["sslkey_path"] = "cert/apiclient_key.pem"
 config["sign_type"] = "HMAC-SHA256"
 
+input["auth_code"] = "134728953980228598"
+input["body"] = "付款码支付测试"
+input["total_fee"] = "1"
+input["out_trade_no"] = "test00000001"
+
+try:
+  if wxmicropay(input, config, results):
+    echo "支付成功"
+    echo results
+  else:
+    echo "支付失败"
+    echo results
+except:
+  echo errorMessage()
+
+results.clear()
+input.clear()
 input["out_refund_no"] = "132564989589668"
 input["out_trade_no"] = "test00000001"
 input["refund_fee"] = "1"
 input["total_fee"] = "1"
 
 try:
-  var ret = wxRefund(input, config, succFlag)
-  if succFlag:
+  if wxrefund(input, config, results):
     echo "请求退款成功"
-    echo ret
+    echo results
   else:
     echo "请求退款失败"
-    echo ret
+    echo results
 except:
-  echo wxErrorMessage()
+  echo errorMessage()
