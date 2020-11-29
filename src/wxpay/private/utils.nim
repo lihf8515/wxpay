@@ -1,6 +1,6 @@
 ## 通用功能模块
 
-import strutils, times, random, tables
+import strutils, times, random, tables, json
 import xmltree, xmlparser, net, httpclient, md5
 
 import hmac
@@ -113,6 +113,14 @@ proc getLocalIpAddr*(): string =
 proc getCurrentTime*(): string =
   ## 获取被格式化为"yyyyMMddHHmmss"形式的当前时间串
   result = format(getTime(), "yyyyMMddHHmmss")
+
+proc fromJson*(json: string): WxPayData =
+  ## 由json字符串转换为有序表，返回一个有序表
+  var table = WxPayData()
+  let jsonnode = %json
+  for key, value in jsonnode:
+    table[$key] = $value
+  result = table
 
 proc fromXml*(xml: string): WxPayData =
   ## 由xml字符串转换为有序表，返回一个有序表
