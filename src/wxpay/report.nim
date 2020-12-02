@@ -55,7 +55,7 @@ proc reportCostTime*(configData: WxPayData,
   # 模式具体可参考本文档章节：被扫支付商户接入模式其它接口调用仍然按照调用一次，上报一次来进行
   inputData["interface_url"] = url
   # 设置接口耗时情况，单位为毫秒
-  inputData["execute_time_"] = $(parseBiggestInt(endTimeStamp) - parseBiggestInt(startTimeStamp))
+  inputData["execute_time_"] = $(parseInt(endTimeStamp) - parseInt(startTimeStamp))
   # 设置返回码，SUCCESS/FAIL,此字段是通信标识，非交易标识，交易是否成功需要查看trade_state来判断
   if reportData.hasKey("return_code"):
     inputData["return_code"] = reportData["return_code"]
