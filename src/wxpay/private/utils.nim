@@ -114,6 +114,13 @@ proc getCurrentTime*(): string =
   ## 获取被格式化为"yyyyMMddHHmmss"形式的当前时间串
   result = format(getTime(), "yyyyMMddHHmmss")
 
+proc getMillisecond*(): string =
+  ## 获取毫秒级别的时间戳
+  let time = getTime()
+  let unixTime = $time.toUnixFloat()
+  let seqs = unixTime.split('.')
+  result = seqs[0][^5..^1] & seqs[1][0..2]
+
 proc fromJson*(json: string): WxPayData =
   ## 由json字符串转换为有序表，返回一个有序表
   var table = WxPayData()
@@ -156,13 +163,6 @@ proc getNonceStr*(length = 32): string =
     pos = rand(chars.len - 1)
     str.add chars[pos .. pos]
   result = str
-
-proc getMillisecond*(): string =
-  ## 获取毫秒级别的时间戳
-  let time = getTime()
-  let unixTime = $time.toUnixFloat()
-  let seqs = unixTime.split('.')
-  result = seqs[0] & seqs[1][0..2]
 
 proc postXmlCurl*(configData:WxPayData,
                   xml, url: string,
