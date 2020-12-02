@@ -57,11 +57,9 @@ proc cancel(config: WxPayData, outTradeNo: string,
   except:
     return false
 
-{.push stdcall dynlib exportc.}
 proc wxMicropay*(input, config: WxPayData, results: var WxPayData): bool =
   ## 付款码支付，input是用户请求数据，config是用户配置数据，
   ## results接收接口返回的结果，本函数返回是否成功true/false
-  ## 此函数将要导出到lib，供其他语言调用
   # 1、提交被扫支付
   var ret = micropay(input, config, 5)
   # 如果调用失败
@@ -103,7 +101,6 @@ proc wxMicropay*(input, config: WxPayData, results: var WxPayData): bool =
 proc wxRefund*(input, config: WxPayData, results: var WxPayData): bool =
   ## 退款申请，input是用户请求数据，config是用户配置数据，
   ## results接收接口返回的结果，本函数返回是否成功true/false
-  ## 此函数将要导出到lib，供其他语言调用
   # 调用申请退款
   var ret = refund(input, config)
   # 如果调用失败
@@ -120,10 +117,9 @@ proc wxRefund*(input, config: WxPayData, results: var WxPayData): bool =
     results = ret
     return false
 
-proc wxMicropayJson*(inputJson, configJson: string, resultsJson: var string): bool =
+proc wxMicropay*(inputJson, configJson: string, resultsJson: var string): bool =
   ## 付款码支付，参数均是json字符串，inputJson是用户请求数据，configJson是用户配置数据，
   ## resultsJson接收接口返回的结果，本函数返回是否成功true/false
-  ## 此函数将要导出到lib，供其他语言调用
   var input = fromJson(inputJson)
   var config = fromJson(configJson)
   var results = WxPayData()
@@ -131,10 +127,9 @@ proc wxMicropayJson*(inputJson, configJson: string, resultsJson: var string): bo
   resultsJson = $results
   return ret
 
-proc wxRefundJson*(inputJson, configJson: string, resultsJson: var string): bool =
+proc wxRefund*(inputJson, configJson: string, resultsJson: var string): bool =
   ## 退款申请，参数均是json字符串，inputJson是用户请求数据，configJson是用户配置数据，
   ## resultsJson接收接口返回的结果，本函数返回是否成功true/false
-  ## 此函数将要导出到lib，供其他语言调用
   var input = fromJson(inputJson)
   var config = fromJson(configJson)
   var results = WxPayData()
@@ -144,4 +139,4 @@ proc wxRefundJson*(inputJson, configJson: string, resultsJson: var string): bool
 
 proc wxErrorMessage*(): string =
   result = errorMessage()
-{.pop.}
+
