@@ -28,7 +28,7 @@ config["sslcert_path"] = "cert/apiclient_cert.pem"
 config["sslkey_path"] = "cert/apiclient_key.pem"
 config["sign_type"] = "HMAC-SHA256"
 
-input["auth_code"] = "134728953980228598"
+input["auth_code"] = "138728953980228598"
 input["body"] = "付款码支付测试"
 input["total_fee"] = "1"
 input["out_trade_no"] = "test00000001"
