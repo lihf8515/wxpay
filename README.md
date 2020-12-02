@@ -4,7 +4,7 @@ A wechat payment sdk for nim.
 目前，已经实现的功能：
 1、付款码支付。
 2、申请退款。
-
+注意：编译时请使用 -d:ssl 以开启ssl支持
 下面是一个例子：
 ``` nim
 import tables
