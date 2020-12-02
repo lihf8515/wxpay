@@ -1,5 +1,5 @@
 # wxpay
-WeChat payment system development kit for nim language.
+WeChat payment SDK for nim language.
 
 已经实现的功能：
 1. 付款码支付。
