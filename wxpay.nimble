@@ -2,7 +2,7 @@
 
 version       = "0.1.0"
 author        = "LiHaiFeng"
-description   = "wechat pay sdk"
+description   = "WeChat payment SDK for nim language."
 license       = "MIT"
 srcDir        = "src"
 
