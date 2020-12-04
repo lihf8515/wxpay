@@ -339,11 +339,11 @@ proc initConfig*(config: WxPayData,
   configData["appsecret"] = config.getOrDefault("appsecret", "")
   configData["sign_type"] = config.getOrDefault("sign_type", "HMAC-SHA256")
   configData["report_level"] = config.getOrDefault("report_level", "1")
-  configData["notify_url"] = config.getOrDefault("notify_url", "")
+  configData["notify_url"] = config.getOrDefault("notify_url", "https://weixin.qq.com/notify/")
   configData["proxy_host"] = config.getOrDefault("proxy_host", "0.0.0.0")
   configData["proxy_port"] = config.getOrDefault("proxy_port", "0")
-  configData["sslcert_path"] = config.getOrDefault("sslcert_path", "")
-  configData["sslkey_path"] = config.getOrDefault("sslkey_path", "")
+  configData["sslcert_path"] = config.getOrDefault("sslcert_path", "cert/apiclient_cert.pem")
+  configData["sslkey_path"] = config.getOrDefault("sslkey_path", "cert/apiclient_key.pem")
   result = configData 
 
 proc checkResults*(configData: WxPayData,
