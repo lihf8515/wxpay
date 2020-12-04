@@ -27,8 +27,8 @@ proc refund*(input, config: WxPayData, timeOut = 6): WxPayData =
   inputData["total_fee"] = input["total_fee"]
   inputData["refund_fee"] = input["refund_fee"]
   # 异步通知url未设置，则使用配置文件中的url
-  if not input.hasKey("notify_url") and config["notify_url"] != "":
-    inputData["notify_url"] = config["notify_url"] # 异步通知url
+  if not input.hasKey("notify_url") and configData["notify_url"] != "":
+    inputData["notify_url"] = configData["notify_url"] # 异步通知url
     
   if input.hasKey("out_trade_no"):
     inputData["out_trade_no"] = input["out_trade_no"]
