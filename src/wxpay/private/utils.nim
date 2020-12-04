@@ -182,8 +182,11 @@ proc postXmlCurl*(configData:WxPayData,
     var keyFilePath = configData.getOrDefault("sslkey_path", "")
     if keyFilePath == "":
       raise newException(WxPayException, "apiclient_key.pem文件路径不能为空！")
-    var ssl = newContext(certFile = certFilePath, keyFile = keyFilePath)
-    client = newHttpClient(proxy = proxy, sslContext = ssl, timeout = second * 1000)
+    try:
+      var ssl = newContext(certFile = certFilePath, keyFile = keyFilePath)
+      client = newHttpClient(proxy = proxy, sslContext = ssl, timeout = second * 1000)
+    except:
+      raise newException(WxPayException, errorMessage())
   else:
     client = newHttpClient(proxy = proxy, timeout = second * 1000)
   client.headers = newHttpHeaders({ "Content-Type": "application/xml" }) # 设置header
