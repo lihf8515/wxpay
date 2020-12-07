@@ -9,5 +9,5 @@ proc errorMessage*(): string =
     err.add("\n跟踪信息：\n")
     for i, item in getCurrentException().getStackTraceEntries:
       err.add($(i + 1) & "、在 " & $item.filename & " 文件的 " & $item.procname &
-              " 函数第 " & $item.line & " 行。\n")
+              " 函数；第 " & $item.line & " 行。\n")
   result = err
