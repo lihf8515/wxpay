@@ -1,8 +1,9 @@
 #
 #
 #         WeChat payment SDK for Nim
-#        (c) Copyright 2020 LiHaiFeng
+#        (c) Copyright 2020 Li Haifeng
 #
+
 ## 微信支付API接口模块，用户最终的微信支付相关的调用都应该调用此模块的相关函数。
 ## 刷卡支付实现,实现了一个刷卡支付的流程，流程如下：
 ## 1、提交刷卡支付,
