@@ -1,8 +1,8 @@
 # Package
 
 version       = "0.1.0"
-author        = "LiHaiFeng"
-description   = "WeChat payment SDK for nim language."
+author        = "Li Haifeng"
+description   = "WeChat payment SDK for Nim."
 license       = "MIT"
 srcDir        = "src"
 
