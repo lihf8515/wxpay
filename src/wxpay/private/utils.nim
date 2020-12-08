@@ -1,3 +1,9 @@
+#
+#
+#         WeChat payment SDK for Nim
+#        (c) Copyright 2020 Li Haifeng
+#
+
 ## 通用功能模块
 
 import strutils, times, random, tables, json
