@@ -1,5 +1,12 @@
+#
+#
+#         WeChat payment SDK for Nim
+#        (c) Copyright 2020 LiHaiFeng
+#
+
+## 微信支付异常处理
+
 type WxPayException* = system.Exception
-  ## 微信支付API异常处理类
 
 proc errorMessage*(): string =
   ## 显示出错信息，如果是Debug编译模式则显示堆栈跟踪信息，
