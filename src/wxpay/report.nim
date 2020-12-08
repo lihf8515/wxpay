@@ -1,4 +1,10 @@
-## 测速上报模块，此模块不需要由用户调用
+#
+#
+#         WeChat payment SDK for Nim
+#        (c) Copyright 2020 Li Haifeng
+#
+
+## 测速上报（交易保障）模块，此模块不需要由用户调用
 
 import strutils, tables
 
