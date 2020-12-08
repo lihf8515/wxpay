@@ -1,7 +1,7 @@
 #
 #
 #         WeChat payment SDK for Nim
-#        (c) Copyright 2020 LiHaiFeng
+#        (c) Copyright 2020 Li Haifeng
 #
 
 ## 订单查询模块
