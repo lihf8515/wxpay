@@ -277,70 +277,32 @@ proc initConfig*(config: WxPayData,
                  apiType: WxPayApiType): WxPayData =
   ## 根据用户输入的数据创建并初始化配置
   var configData = WxPayData()
+  var typeName = ""
   case apiType
   of typeMicroPay: # 检查被扫支付的配置
-    if not config.hasKey("appid") or config["appid"] == "":
-      raise newException(WxPayException, "被扫支付配置参数中缺少必填参数：公众号appid ！")
-    if not config.hasKey("mch_id") or config["mch_id"] == "":
-      raise newException(WxPayException, "被扫支付配置参数中缺少必填参数：商户号mch_id ！")
-    if not config.hasKey("key") or config["key"] == "":
-      raise newException(WxPayException, "被扫支付配置参数中缺少必填参数：商户支付密钥key ！")
+    typeName = "被扫支付"
   of typeDownloadBill: # 检查下载对账单的配置
-    if not config.hasKey("appid") or config["appid"] == "":
-      raise newException(WxPayException, "下载对账单配置参数中缺少必填参数：公众号appid ！")
-    if not config.hasKey("mch_id") or config["mch_id"] == "":
-      raise newException(WxPayException, "下载对账单配置参数中缺少必填参数：商户号mch_id ！")
-    if not config.hasKey("key") or config["key"] == "":
-      raise newException(WxPayException, "下载对账单配置参数中缺少必填参数：商户支付密钥key ！")
+    typeName = "下载对账单"
   of typeOrderQuery: # 检查订单查询的配置
-    if not config.hasKey("appid") or config["appid"] == "":
-      raise newException(WxPayException, "订单查询配置参数中缺少必填参数：公众号appid ！")
-    if not config.hasKey("mch_id") or config["mch_id"] == "":
-      raise newException(WxPayException, "订单查询配置参数中缺少必填参数：商户号mch_id ！")
-    if not config.hasKey("key") or config["key"] == "":
-      raise newException(WxPayException, "订单查询配置参数中缺少必填参数：商户支付密钥key ！")
+    typeName = "订单查询"
   of typeReverse: # 检查撤销订单的配置
-    if not config.hasKey("appid") or config["appid"] == "":
-      raise newException(WxPayException, "撤销订单配置参数中缺少必填参数：公众号appid ！")
-    if not config.hasKey("mch_id") or config["mch_id"] == "":
-      raise newException(WxPayException, "撤销订单配置参数中缺少必填参数：商户号mch_id ！")
-    if not config.hasKey("key") or config["key"] == "":
-      raise newException(WxPayException, "撤销订单配置参数中缺少必填参数：商户支付密钥key ！")
+    typeName = "撤销订单"
   of typeRefund: # 检查退款申请的配置
-    if not config.hasKey("appid") or config["appid"] == "":
-      raise newException(WxPayException, "退款申请配置参数中缺少必填参数：公众号appid ！")
-    if not config.hasKey("mch_id") or config["mch_id"] == "":
-      raise newException(WxPayException, "退款申请配置参数中缺少必填参数：商户号mch_id ！")
-    if not config.hasKey("key") or config["key"] == "":
-      raise newException(WxPayException, "退款申请配置参数中缺少必填参数：商户支付密钥key ！")
+    typeName = "退款申请"
   of typeRefundQuery: # 检查退款查询的配置
-    if not config.hasKey("appid") or config["appid"] == "":
-      raise newException(WxPayException, "退款查询配置参数中缺少必填参数：公众号appid ！")
-    if not config.hasKey("mch_id") or config["mch_id"] == "":
-      raise newException(WxPayException, "退款查询配置参数中缺少必填参数：商户号mch_id ！")
-    if not config.hasKey("key") or config["key"] == "":
-      raise newException(WxPayException, "退款查询配置参数中缺少必填参数：商户支付密钥key ！")
+    typeName = "退款查询"
   of typeShortUrl: # 检查转换短链接的配置
-    if not config.hasKey("appid") or config["appid"] == "":
-      raise newException(WxPayException, "转换短链接配置参数中缺少必填参数：公众号appid ！")
-    if not config.hasKey("mch_id") or config["mch_id"] == "":
-      raise newException(WxPayException, "转换短链接配置参数中缺少必填参数：商户号mch_id ！")
-    if not config.hasKey("key") or config["key"] == "":
-      raise newException(WxPayException, "转换短链接配置参数中缺少必填参数：商户支付密钥key ！")
+    typeName = "转换短链接"
   of typeUnifiedOrder: # 检查统一下单的配置
-    if not config.hasKey("appid") or config["appid"] == "":
-      raise newException(WxPayException, "统一下单配置参数中缺少必填参数：公众号appid ！")
-    if not config.hasKey("mch_id") or config["mch_id"] == "":
-      raise newException(WxPayException, "统一下单配置参数中缺少必填参数：商户号mch_id ！")
-    if not config.hasKey("key") or config["key"] == "":
-      raise newException(WxPayException, "统一下单配置参数中缺少必填参数：商户支付密钥key ！")
+    typeName = "统一下单"
   of typeCloseOrder: # 检查关闭订单的配置
-    if not config.hasKey("appid") or config["appid"] == "":
-      raise newException(WxPayException, "关闭订单配置参数中缺少必填参数：公众号appid ！")
-    if not config.hasKey("mch_id") or config["mch_id"] == "":
-      raise newException(WxPayException, "关闭订单配置参数中缺少必填参数：商户号mch_id ！")
-    if not config.hasKey("key") or config["key"] == "":
-      raise newException(WxPayException, "关闭订单配置参数中缺少必填参数：商户支付密钥key ！")
+    typeName = "关闭订单"
+  if not config.hasKey("appid") or config["appid"] == "":
+    raise newException(WxPayException, typeName & "配置参数中缺少必填参数：公众号appid ！")
+  if not config.hasKey("mch_id") or config["mch_id"] == "":
+    raise newException(WxPayException, typeName & "配置参数中缺少必填参数：商户号mch_id ！")
+  if not config.hasKey("key") or config["key"] == "":
+    raise newException(WxPayException, typeName & "配置参数中缺少必填参数：商户支付密钥key ！")
   # 根据情况初始化全部配置参数
   configData["appid"] = config.getOrDefault("appid", "")
   configData["mch_id"] = config.getOrDefault("mch_id", "")
@@ -353,7 +315,7 @@ proc initConfig*(config: WxPayData,
   configData["proxy_port"] = config.getOrDefault("proxy_port", "0")
   configData["sslcert_path"] = config.getOrDefault("sslcert_path", "cert/apiclient_cert.pem")
   configData["sslkey_path"] = config.getOrDefault("sslkey_path", "cert/apiclient_key.pem")
-  result = configData 
+  result = configData
 
 proc checkResults*(configData: WxPayData,
                    xml: string, enableCheckSign = true): WxPayData =
