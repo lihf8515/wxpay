@@ -99,7 +99,7 @@ proc wxMicropay*(input, config: WxPayData, results: var WxPayData): bool =
     dec(queryTimes)
   # 4、10次确认失败，则撤销订单
   if not cancel(config, outTradeNo):
-    raise newException(WxpayException, "撤销单失败！")
+    raise newException(WxpayException, "撤销订单失败！")
   # 到这里说明支付不成功
   results = queryResult
   return false
