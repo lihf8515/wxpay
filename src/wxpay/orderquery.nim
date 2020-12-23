@@ -6,7 +6,7 @@
 
 ## 订单查询模块
 
-import tables
+import tables, strutils
 
 import private/utils
 import exception
@@ -18,16 +18,18 @@ proc orderQuery*(input: var WxPayData, config: WxPayData,
   ## 建议优先使用transaction_id查询，
   ## appid、mch_id由config参数携带，nonce_str由系统自动填入
   # 检测必填参数
-  if not input.hasKey("out_trade_no") and not input.hasKey("transaction_id"):
-    raise newException(WxPayException, "订单查询接口，商户订单号out_trade_no、微信支付订单号transaction_id至少填一个！")
+  if (not input.hasKey("out_trade_no") or strip(input["out_trade_no"]) == "") and
+     (not input.hasKey("transaction_id") or strip(input["transaction_id"]) == ""):
+    raise newException(WxPayException,
+                       "订单查询接口，商户订单号out_trade_no、微信支付订单号transaction_id至少填一个！")
   # 初始化并返回有效的配置数据
   let configData = initConfig(config, typeOrderQuery)
   # 初始化订单查询请求数据
   var inputData = WxPayData()
   if input.hasKey("out_trade_no"):
-    inputData["out_trade_no"] = input["out_trade_no"]
+    inputData["out_trade_no"] = strip(input["out_trade_no"])
   if input.hasKey("transaction_id"):
-    inputData["transaction_id"] = input["transaction_id"]
+    inputData["transaction_id"] = strip(input["transaction_id"])
   inputData["appid"] = configData["appid"] # 设置公众账号ID
   inputData["mch_id"] = configData["mch_id"] # 设置商户号
   inputData["nonce_str"] = getNonceStr() # 设置随机字符串
