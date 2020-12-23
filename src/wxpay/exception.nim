@@ -7,6 +7,7 @@
 ## 微信支付异常处理
 
 type WxPayException* = system.Exception
+  ## 微信支付异常类
 
 proc errorMessage*(): string =
   ## 显示出错信息，如果是Debug编译模式则显示堆栈跟踪信息，
