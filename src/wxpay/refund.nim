@@ -20,11 +20,11 @@ proc refund*(input, config: WxPayData, timeOut = 6): WxPayData =
   if (not input.hasKey("out_trade_no") or strip(input["out_trade_no"]) == "") and
      (not input.hasKey("transaction_id") or strip(input["transaction_id"]) == ""):
     raise newException(WxPayException, "退款申请接口，商户订单号out_trade_no、微信支付订单号transaction_id至少填一个！")
-  if not input.hasKey("out_refund_no") or strip(input["out_refund_no"] == ""):
+  if not input.hasKey("out_refund_no") or strip(input["out_refund_no"]) == "":
     raise newException(WxPayException, "退款申请接口缺少必填参数：商户退款单号out_refund_no！")
-  elif not input.hasKey("total_fee") or strip(input["total_fee"] == ""):
+  elif not input.hasKey("total_fee") or strip(input["total_fee"]) == "":
     raise newException(WxPayException, "退款申请接口缺少必填参数：订单金额total_fee！")
-  elif not input.hasKey("refund_fee") or strip(input["refund_fee"] == ""):
+  elif not input.hasKey("refund_fee") or strip(input["refund_fee"]) == "":
     raise newException(WxPayException, "退款申请接口缺少必填参数：退款金额refund_fee！")
   # 初始化并返回有效的配置数据
   let configData = initConfig(config, typeRefund)
@@ -66,4 +66,3 @@ proc refund*(input, config: WxPayData, timeOut = 6): WxPayData =
   let ret = checkResults(configData, response) # 检测接口调用返回的xml字符串是否合法，并且将其转换为有序表返回
   reportCostTime(configData, url, startTimeStamp, ret) # 上报请求花费时间
   result = ret
-
