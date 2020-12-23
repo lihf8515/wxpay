@@ -6,7 +6,7 @@
 
 ## 转换短链接模块
 
-import tables, strutils
+import tables
 
 import private/utils
 import exception
@@ -18,13 +18,13 @@ proc shorturl*(input: var WxPayData, config: WxPayData,
   ## 减小二维码数据量，提升扫描速度和精确度。
   ## appid、mchid由config参数携带，nonce_str由系统自动填入,
   # 检测必填参数
-  if not input.hasKey("long_url") or strip(input["long_url"]) == "":
+  if not input.hasKey("long_url") or input["long_url"] == "":
     raise newException(WxPayException, "转换短链接接口缺少必填参数：URL（要签名需用原串，传输需URL encode）！")
   # 初始化并返回有效的配置数据
   let configData = initConfig(config, typeShortUrl)
   # 初始化撤销订单请求数据
   var inputData = WxPayData()
-  inputData["long_url"] = strip(input["long_url"])
+  inputData["long_url"] = input["long_url"]
   inputData["appid"] = configData["appid"] # 设置公众账号ID
   inputData["mch_id"] = configData["mch_id"] # 设置商户号
   inputData["nonce_str"] = getNonceStr() # 设置随机字符串
