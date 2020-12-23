@@ -147,3 +147,4 @@ proc wxErrorMessage*(): string =
   ## 显示出错信息，如果是Debug编译模式则显示堆栈跟踪信息，
   ## 如果不是Debug编译模式则不显示堆栈跟踪信息。
   result = errorMessage()
+  
