@@ -6,7 +6,7 @@
 
 ## 退款申请模块
 
-import tables, strutils
+import tables
 
 import private/utils
 import exception
@@ -66,3 +66,4 @@ proc refund*(input, config: WxPayData, timeOut = 6): WxPayData =
   let ret = checkResults(configData, response) # 检测接口调用返回的xml字符串是否合法，并且将其转换为有序表返回
   reportCostTime(configData, url, startTimeStamp, ret) # 上报请求花费时间
   result = ret
+
