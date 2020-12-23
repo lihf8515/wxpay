@@ -6,7 +6,7 @@
 
 ## 退款查询模块
 
-import tables, strutils
+import tables
 
 import private/utils
 import exception
@@ -20,8 +20,8 @@ proc refundQuery*(input, config: WxPayData, timeOut = 6): WxPayData =
   # 检测必填参数
   if (not input.hasKey("out_refund_no") and not input.hasKey("out_trade_no") and 
       not input.hasKey("transaction_id") and not input.hasKey("refund_id")) or
-     (strip(input["out_refund_no"]) == "" and strip(input["out_trade_no"]) == "" and
-      strip(input["transaction_id"]) == "" and strip(input["refund_id"]) == ""):
+     (input["out_refund_no"] == "" and input["out_trade_no"] == "" and
+      input["transaction_id"] == "" and input["refund_id"] == ""):
     raise newException(WxPayException, "退款查询接口，商户退款单号out_refund_no、"&
                        "商户订单号out_trade_no、微信支付订单号transaction_id、"&
                        "微信退款单号refund_id四个参数必填一个！")
@@ -30,16 +30,16 @@ proc refundQuery*(input, config: WxPayData, timeOut = 6): WxPayData =
   # 初始化退款查询请求数据
   var inputData = WxPayData()
   if input.hasKey("out_refund_no"):
-    inputData["out_refund_no"] = strip(input["out_refund_no"])
+    inputData["out_refund_no"] = input["out_refund_no"]
 
   if input.hasKey("transaction_id"):
-    inputData["transaction_id"] = strip(input["transaction_id"])
+    inputData["transaction_id"] = input["transaction_id"]
   
   if input.hasKey("out_trade_no"):
-    inputData["out_trade_no"] = strip(input["out_trade_no"])
+    inputData["out_trade_no"] = input["out_trade_no"]
 
   if input.hasKey("refund_id"):
-    inputData["refund_id"] = strip(input["refund_id"])
+    inputData["refund_id"] = input["refund_id"]
 
   inputData["appid"] = configData["appid"] # 设置公众账号ID
   inputData["mch_id"] = configData["mch_id"] # 设置商户号
