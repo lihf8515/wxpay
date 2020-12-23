@@ -297,24 +297,24 @@ proc initConfig*(config: WxPayData,
     typeName = "统一下单"
   of typeCloseOrder: # 检查关闭订单的配置
     typeName = "关闭订单"
-  if not config.hasKey("appid") or config["appid"] == "":
+  if not config.hasKey("appid") or strip(config["appid"]) == "":
     raise newException(WxPayException, typeName & "配置参数中缺少必填参数：公众号appid ！")
-  if not config.hasKey("mch_id") or config["mch_id"] == "":
+  if not config.hasKey("mch_id") or strip(config["mch_id"]) == "":
     raise newException(WxPayException, typeName & "配置参数中缺少必填参数：商户号mch_id ！")
-  if not config.hasKey("key") or config["key"] == "":
+  if not config.hasKey("key") or strip(config["key"]) == "":
     raise newException(WxPayException, typeName & "配置参数中缺少必填参数：商户支付密钥key ！")
   # 根据情况初始化全部配置参数
-  configData["appid"] = config.getOrDefault("appid", "")
-  configData["mch_id"] = config.getOrDefault("mch_id", "")
-  configData["key"] = config.getOrDefault("key", "")
-  configData["appsecret"] = config.getOrDefault("appsecret", "")
-  configData["sign_type"] = config.getOrDefault("sign_type", "HMAC-SHA256")
-  configData["report_level"] = config.getOrDefault("report_level", "1")
-  configData["notify_url"] = config.getOrDefault("notify_url", "https://weixin.qq.com/notify/")
-  configData["proxy_host"] = config.getOrDefault("proxy_host", "0.0.0.0")
-  configData["proxy_port"] = config.getOrDefault("proxy_port", "0")
-  configData["sslcert_path"] = config.getOrDefault("sslcert_path", "cert/apiclient_cert.pem")
-  configData["sslkey_path"] = config.getOrDefault("sslkey_path", "cert/apiclient_key.pem")
+  configData["appid"] = strip(config.getOrDefault("appid", ""))
+  configData["mch_id"] = strip(config.getOrDefault("mch_id", ""))
+  configData["key"] = strip(config.getOrDefault("key", ""))
+  configData["appsecret"] = strip(config.getOrDefault("appsecret", ""))
+  configData["sign_type"] = strip(config.getOrDefault("sign_type", "HMAC-SHA256"))
+  configData["report_level"] = strip(config.getOrDefault("report_level", "1"))
+  configData["notify_url"] = strip(config.getOrDefault("notify_url", "https://weixin.qq.com/notify/"))
+  configData["proxy_host"] = strip(config.getOrDefault("proxy_host", "0.0.0.0"))
+  configData["proxy_port"] = strip(config.getOrDefault("proxy_port", "0"))
+  configData["sslcert_path"] = strip(config.getOrDefault("sslcert_path", "cert/apiclient_cert.pem"))
+  configData["sslkey_path"] = strip(config.getOrDefault("sslkey_path", "cert/apiclient_key.pem"))
   result = configData
 
 proc checkResults*(configData: WxPayData,
