@@ -18,9 +18,10 @@ proc reverse*(input: var WxPayData, config: WxPayData,
   ## 建议优先使用transaction_id撤销，
   ## appid、mch_id由config参数携带，nonce_str由系统自动填入
   # 检测必填参数
-  if (not input.hasKey("out_trade_no") and not input.hasKey("transaction_id"))
-     or (strip(input["out_trade_no"]) == "" and
-        strip(input["transaction_id"]) == ""):
+  if (not input.hasKey("out_trade_no") and
+      not input.hasKey("transaction_id")) or
+     (strip(input["out_trade_no"]) == "" and
+      strip(input["transaction_id"]) == ""):
     raise newException(WxPayException, "撤销订单接口，参数out_trade_no和transaction_id必须填写一个！")
   # 初始化并返回有效的配置数据
   let configData = initConfig(config, typeReverse)
