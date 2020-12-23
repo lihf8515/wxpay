@@ -6,7 +6,7 @@
 
 ## 统一下单模块
 
-import tables, strutils
+import tables
 
 import private/utils
 import exception
@@ -17,20 +17,20 @@ proc unifiedOrder*(input: var WxPayData, config: WxPayData,
   ## 统一下单，input参数中out_trade_no、body、total_fee、trade_type必填,
   ## appid、mchid由config参数携带，spbill_create_ip、nonce_str由系统自动填入,
   # 检测必填参数
-  if not input.hasKey("out_trade_no") or strip(input["out_trade_no"]) == "":
+  if not input.hasKey("out_trade_no") or input["out_trade_no"] == "":
     raise newException(WxPayException, "统一支付接口缺少必填参数：out_trade_no！")
-  elif not input.hasKey("body") or strip(input["body"]) == "":
+  elif not input.hasKey("body") or input["body"] == "":
     raise newException(WxPayException, "统一支付接口缺少必填参数：body！")
-  elif not input.hasKey("total_fee") or strip(input["total_fee"]) == "":
+  elif not input.hasKey("total_fee") or input["total_fee"] == "":
     raise newException(WxPayException, "统一支付接口缺少必填参数：total_fee！")
-  elif not input.hasKey("trade_type") or strip(input["trade_type"]) == "":
+  elif not input.hasKey("trade_type") or input["trade_type"] == "":
     raise newException(WxPayException, "统一支付接口缺少必填参数：trade_type！")
   # 关联参数
   if input["trade_type"] == "JSAPI" and
-     (not input.hasKey("openid") or strip(input["openid"]) == ""):
+     (not input.hasKey("openid") or input["openid"] == ""):
     raise newException(WxPayException, "统一支付接口缺少必填参数openid！trade_type为JSAPI时，openid为必填参数！")
   if input["trade_type"] == "NATIVE" and
-     (not input.hasKey("product_id") or strip(input["product_id"]) == ""):
+     (not input.hasKey("product_id") or input["product_id"] == ""):
     raise newException(WxPayException, "统一支付接口缺少必填参数product_id！trade_type为JSAPI时，product_id为必填参数！")
   # 初始化并返回有效的配置数据
   let configData = initConfig(config, typeUnifiedOrder)
@@ -41,46 +41,46 @@ proc unifiedOrder*(input: var WxPayData, config: WxPayData,
     inputData["notify_url"] = config["notify_url"] # 异步通知url
   
   if input.hasKey("out_trade_no"):
-    inputData["out_trade_no"] = strip(input["out_trade_no"])
+    inputData["out_trade_no"] = input["out_trade_no"]
 
   if input.hasKey("body"):
-    inputData["body"] = strip(input["body"])
+    inputData["body"] = input["body"]
 
   if input.hasKey("total_fee"):
-    inputData["total_fee"] = strip(input["total_fee"])
+    inputData["total_fee"] = input["total_fee"]
 
   if input.hasKey("trade_type"):
-    inputData["trade_type"] = strip(input["trade_type"])
+    inputData["trade_type"] = input["trade_type"]
 
   if input.hasKey("openid"):
-    inputData["openid"] = strip(input["openid"])
+    inputData["openid"] = input["openid"]
 
   if input.hasKey("product_id"):
-    inputData["product_id"] = strip(input["product_id"])
+    inputData["product_id"] = input["product_id"]
 
   if input.hasKey("device_info"):
-    inputData["device_info"] = strip(input["device_info"])
+    inputData["device_info"] = input["device_info"]
 
   if input.hasKey("detail"):
-    inputData["detail"] = strip(input["detail"])
+    inputData["detail"] = input["detail"]
 
   if input.hasKey("attach"):
-    inputData["attach"] = strip(input["attach"])
+    inputData["attach"] = input["attach"]
 
   if input.hasKey("fee_type"):
-    inputData["fee_type"] = strip(input["fee_type"])
+    inputData["fee_type"] = input["fee_type"]
 
   if input.hasKey("fee_type"):
-    inputData["fee_type"] = strip(input["fee_type"])
+    inputData["fee_type"] = input["fee_type"]
 
   if input.hasKey("time_start"):
-    inputData["time_start"] = strip(input["time_start"])
+    inputData["time_start"] = input["time_start"]
 
   if input.hasKey("time_expire"):
-    inputData["time_expire"] = strip(input["time_expire"])
+    inputData["time_expire"] = input["time_expire"]
 
   if input.hasKey("goods_tag"):
-    inputData["goods_tag"] = strip(input["goods_tag"])
+    inputData["goods_tag"] = input["goods_tag"]
 
   inputData["appid"] = configData["appid"] # 设置公众账号ID  
   inputData["mch_id"] = configData["mch_id"] # 设置商户号  
