@@ -18,13 +18,17 @@ proc report*(inputData: var WxPayData, configData: WxPayData,
   ## appid、mch_id由config参数携带，user_ip、nonce_str、time由系统自动填入
   ## 成功时返回，其他抛异常
   # 检测必填参数
-  if not inputData.hasKey("interface_url"):
+  if not inputData.hasKey("interface_url") or
+     strip(inputData["interface_url"]) == "":
     raise newException(WxPayException, "测速上报接口缺少必填参数：接口地址interface_url！")
-  elif not inputData.hasKey("return_code"):
+  elif not inputData.hasKey("return_code") or
+     strip(inputData["return_code"]) == "":
     raise newException(WxPayException, "测速上报接口缺少必填参数：返回状态码return_code！")
-  elif not inputData.hasKey("result_code"):
+  elif not inputData.hasKey("result_code") or
+     strip(inputData["result_code"]) == "":
     raise newException(WxPayException, "测速上报接口缺少必填参数：业务结果result_code！")
-  elif not inputData.hasKey("execute_time_"):
+  elif not inputData.hasKey("execute_time_") or
+     strip(inputData["execute_time_"]) == "":
     raise newException(WxPayException, "测速上报接口缺少必填参数：接口耗时execute_time_！")
   inputData["appid"] = configData["appid"] # 设置微信分配的公众账号ID
   inputData["mch_id"] = configData["mch_id"] # 设置微信支付分配的商户号
